@@ -12,10 +12,17 @@ G.clear()
 f = open("data/web-NotreDame.txt", "r")
 line = f.readline()
 n = 0
-while True:
-    line = f.readline()
-    if not line.startswith('#'):   
+for line in f.readlines(): 
+    line.rstrip("\n") 
+
+    if len(line) and (not line.startswith('#')):  
         i = line.split("\t")[0]
-        o = line.split("\t")[1].split("\n")[0]
+        o = line.split("\t")[1]
+        # print(i + ":" +o)
         G.add_edge(i,o)
+    else:
+        continue
 f.close()
+
+#Calculate graph Laplacian matrix
+L = nx.laplacian_matrix(G)
